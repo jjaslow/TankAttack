@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Networking\MyNetworkManager.cs" />
     <Compile Include="Assets\Scripts\Units\UnitMovement.cs" />
+    <Compile Include="Assets\Scripts\Buildings\UnitSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
