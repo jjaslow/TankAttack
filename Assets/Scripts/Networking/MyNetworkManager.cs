@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MyNetworkManager : NetworkManager
 {
+    [Space]
     [SerializeField] GameObject unitSpawnerPrefab;
 
     public override void OnServerAddPlayer(NetworkConnection conn)
@@ -12,7 +13,6 @@ public class MyNetworkManager : NetworkManager
         base.OnServerAddPlayer(conn);
 
         GameObject unitSpawnerInstance = Instantiate(unitSpawnerPrefab, conn.identity.transform.position, conn.identity.transform.rotation);
-
         NetworkServer.Spawn(unitSpawnerInstance, conn);
     }
 

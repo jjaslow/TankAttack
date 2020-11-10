@@ -110,6 +110,7 @@ MonoBehaviour:
   syncInterval: 0.1
   unitPrefab: {fileID: 8524426885509012699, guid: 9d12b1532d19dc248af87a17e8870a7a, type: 3}
   spawnPoint: {fileID: 1938158050157626250}
+  unitSelectionHandler: {fileID: 0}
 --- !u!1 &4181780011233242873
 GameObject:
   m_ObjectHideFlags: 0

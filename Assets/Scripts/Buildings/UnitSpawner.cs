@@ -9,7 +9,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 
     [SerializeField] GameObject unitPrefab;
     [SerializeField] Transform spawnPoint;
-
+    UnitSelectionHandler unitSelectionHandler = null;
 
 
     #region Server
@@ -19,6 +19,8 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     {
         GameObject unitInstance = Instantiate(unitPrefab, spawnPoint.position, spawnPoint.rotation);
         NetworkServer.Spawn(unitInstance, connectionToClient);
+
+        TargetSelectNewlySpawnedUnit(connectionToClient, unitInstance);
     }
 
 
@@ -32,6 +34,12 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 
     #region Client
 
+    public override void OnStartAuthority()
+    {
+        base.OnStartAuthority();
+        unitSelectionHandler = GameObject.Find("UnitHandlers").GetComponent<UnitSelectionHandler>();
+    }
+
     //detects clicks on items. Needs EventHandler game object
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -42,6 +50,12 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
             return;
 
         CmdSpawnUnit();
+    }
+
+    [TargetRpc]
+    void TargetSelectNewlySpawnedUnit(NetworkConnection target, GameObject unitObject)
+    {
+        unitSelectionHandler.SelectNewlySpawnedUnit(unitObject);
     }
 
 
