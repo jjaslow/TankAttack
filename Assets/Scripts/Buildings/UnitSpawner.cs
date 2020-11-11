@@ -41,6 +41,8 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     }
 
     //detects clicks on items. Needs EventHandler game object
+    //also need to add Physics Raycaster component TO CAMERA (since this is detecting clicks on game objects).
+    //(if it was detecting clicks on UI elements then we have the Graphic Raycaster which is on the canvas)
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left)

@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\Buildings\UnitSpawner.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
     <Compile Include="Assets\Scripts\Units\UnitCommandGiver.cs" />
+    <Compile Include="Assets\Scripts\Networking\MyPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
