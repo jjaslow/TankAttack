@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class UnitCommandGiver : MonoBehaviour
@@ -32,14 +33,40 @@ public class UnitCommandGiver : MonoBehaviour
         if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layermask))
             return;
 
+        //we definitely hit something...
+        //if we click on a Targetable (not our own) then we target it (chase it), else we just go to that place.
+        if(hit.collider.TryGetComponent<Targetable>(out Targetable target))
+        {
+            if(target.hasAuthority)
+            {
+                TryMove(hit.point);
+                return;
+            }
+            TryTarget(target);
+            return;
+        }
+
         TryMove(hit.point);
     }
 
+
+
     private void TryMove(Vector3 point)
     {
-        foreach(Unit unit in unitSelectionHandler.selectedUnits)
+        foreach(Unit unit in unitSelectionHandler.GetSelectedUnits())
         {
             unit.GetComponent<UnitMovement>().CmdMove(point);
         }
     }
+
+    private void TryTarget(Targetable target)
+    {
+        foreach (Unit unit in unitSelectionHandler.GetSelectedUnits())
+        {
+            unit.GetComponent<Targeter>().CmdSetTarget(target.gameObject);
+        }
+    }
+
+
+
 }

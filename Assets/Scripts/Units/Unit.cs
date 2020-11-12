@@ -17,18 +17,31 @@ public class Unit : NetworkBehaviour
     public static event Action<Unit> AuthorityOnUnitSpawned;
     public static event Action<Unit> AuthorityOnUnitDespawned;
 
+    Health health;
+
     #region Server
 
     public override void OnStartServer()
     {
         //base.OnStartServer();
         ServerOnUnitSpawned?.Invoke(this);
+
+        health = GetComponent<Health>();
+        health.ServerOnDie += ServerHandleDie;
     }
 
     public override void OnStopServer()
     {
         //base.OnStopServer();
         ServerOnUnitDespawned?.Invoke(this);
+
+        health.ServerOnDie -= ServerHandleDie;
+    }
+
+    [Server]
+    private void ServerHandleDie()
+    {
+        NetworkServer.Destroy(gameObject);
     }
 
 
@@ -61,12 +74,9 @@ public class Unit : NetworkBehaviour
     }
 
 
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
         //base.OnStartServer();
-
-        if (!hasAuthority || !isClientOnly)
-            return;
 
         AuthorityOnUnitSpawned?.Invoke(this);
     }
@@ -75,7 +85,7 @@ public class Unit : NetworkBehaviour
     {
         //base.OnStopClient();
 
-        if (!hasAuthority || !isClientOnly)
+        if (!hasAuthority)
             return;
 
         AuthorityOnUnitDespawned?.Invoke(this);

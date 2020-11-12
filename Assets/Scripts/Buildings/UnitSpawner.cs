@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,30 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     [SerializeField] Transform spawnPoint;
     UnitSelectionHandler unitSelectionHandler = null;
 
+    Health health;
+
 
     #region Server
+
+    [ServerCallback]
+    public override void OnStartServer()
+    {
+        health = GetComponent<Health>();
+        health.ServerOnDie += ServerHandleDie;
+    }
+
+    [ServerCallback]
+    public override void OnStopServer()
+    {
+        health.ServerOnDie -= ServerHandleDie;
+    }
+
+
+    [Server]
+    private void ServerHandleDie()
+    {
+        NetworkServer.Destroy(gameObject);
+    }
 
     [Command]
     void CmdSpawnUnit()
@@ -22,6 +45,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 
         TargetSelectNewlySpawnedUnit(connectionToClient, unitInstance);
     }
+
 
 
     #endregion

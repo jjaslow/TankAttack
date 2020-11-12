@@ -13,14 +13,36 @@ public class UnitSelectionHandler : MonoBehaviour
     MyPlayer player = null;
     Vector2 dragStartPosition;
 
-    public List<Unit> selectedUnits { get; } = new List<Unit>();
+    [SerializeField]
+    List<Unit> selectedUnits = new List<Unit>();
 
-
+    public List<Unit> GetSelectedUnits()
+    {
+        return selectedUnits;
+    }
 
     private void Start()
     {
         mainCamera = Camera.main;
+
+        //temp move to later...
         //player = NetworkClient.connection.identity.GetComponent<MyPlayer>();
+    }
+
+    private void OnEnable()
+    {
+        Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
+    }
+
+    private void OnDisable()
+    {
+        Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
+    }
+
+    private void AuthorityHandleUnitDespawned(Unit unit)
+    {
+        if (selectedUnits.Contains(unit))
+            selectedUnits.Remove(unit);
     }
 
 
@@ -34,7 +56,7 @@ public class UnitSelectionHandler : MonoBehaviour
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            ClearSelectionArea();
+            FinalizeSelection();
         }
         else if (Mouse.current.leftButton.isPressed)
         {
@@ -45,7 +67,8 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void StartSelectionArea()
     {
-        Deselect();
+        if(!Keyboard.current.shiftKey.IsPressed())
+            Deselect();
 
         dragBox.gameObject.SetActive(true);
         dragStartPosition = Mouse.current.position.ReadValue();
@@ -64,10 +87,11 @@ public class UnitSelectionHandler : MonoBehaviour
         dragBox.anchoredPosition = new Vector2(dragStartPosition.x + width / 2, dragStartPosition.y + height / 2);
     }
 
-    private void ClearSelectionArea()
+    private void FinalizeSelection()
     {
         dragBox.gameObject.SetActive(false);
 
+        //we just clicked on an object, not dragged a whole box. so just select that one item.
         if(dragBox.sizeDelta.magnitude == 0)
         {
             Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -89,6 +113,7 @@ public class UnitSelectionHandler : MonoBehaviour
             return;
         }
 
+        //else we dragged a box selection...
         Vector2 min = dragBox.anchoredPosition - (dragBox.sizeDelta / 2);
         Vector2 max = dragBox.anchoredPosition + (dragBox.sizeDelta / 2);
 
@@ -98,6 +123,10 @@ public class UnitSelectionHandler : MonoBehaviour
 
         foreach (Unit unit in player.GetMyUnits())
         {
+            if (selectedUnits.Contains(unit))
+                continue;
+
+            //get each of our units screen location. If it is in the box then select it.
             Vector3 unitScreenPosition = mainCamera.WorldToScreenPoint(unit.transform.position);
 
             if(unitScreenPosition.x >= min.x 
@@ -112,15 +141,6 @@ public class UnitSelectionHandler : MonoBehaviour
     }
 
 
-    private void Deselect()
-    {
-        foreach (Unit selectedUnit in selectedUnits)
-            selectedUnit.Deselect();
-
-        selectedUnits.Clear();
-    }
-
-
 
     public void SelectNewlySpawnedUnit(GameObject unitObject)
     {
@@ -129,5 +149,14 @@ public class UnitSelectionHandler : MonoBehaviour
         Unit unit = unitObject.GetComponent<Unit>();
         selectedUnits.Add(unit);
         unit.Select();
+    }
+
+
+    private void Deselect()
+    {
+        foreach (Unit selectedUnit in selectedUnits)
+            selectedUnit.Deselect();
+
+        selectedUnits.Clear();
     }
 }

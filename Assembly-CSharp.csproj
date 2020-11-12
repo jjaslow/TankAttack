@@ -57,12 +57,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Units\UnitSelectionHandler.cs" />
+    <Compile Include="Assets\Scripts\Combat\Targetable.cs" />
+    <Compile Include="Assets\Scripts\Combat\Health.cs" />
+    <Compile Include="Assets\Scripts\Combat\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Combat\Targeter.cs" />
     <Compile Include="Assets\Scripts\Networking\MyNetworkManager.cs" />
     <Compile Include="Assets\Scripts\Units\UnitMovement.cs" />
     <Compile Include="Assets\Scripts\Buildings\UnitSpawner.cs" />
-    <Compile Include="Assets\Scripts\Units\Unit.cs" />
+    <Compile Include="Assets\Scripts\Units\UnitFiring.cs" />
     <Compile Include="Assets\Scripts\Units\UnitCommandGiver.cs" />
     <Compile Include="Assets\Scripts\Networking\MyPlayer.cs" />
+    <Compile Include="Assets\Scripts\Units\Unit.cs" />
+    <Compile Include="Assets\Scripts\Combat\HealthDisplay.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
