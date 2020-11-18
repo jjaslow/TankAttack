@@ -10,6 +10,7 @@ public class MyNetworkManager : NetworkManager
     [SerializeField] GameObject unitSpawnerPrefab;
     [SerializeField] GameOverHandler gameOverHandlerPrefab;
 
+
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         base.OnServerAddPlayer(conn);
@@ -20,10 +21,15 @@ public class MyNetworkManager : NetworkManager
     }
 
 
+
     public override void OnServerSceneChanged(string sceneName)
     {
+
+
         if (!SceneManager.GetActiveScene().name.Contains("Map"))
+        {
             return;
+        }
 
         GameOverHandler gameOverHandlerInstance = Instantiate(gameOverHandlerPrefab);
         NetworkServer.Spawn(gameOverHandlerInstance.gameObject);

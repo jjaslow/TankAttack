@@ -266,6 +266,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1734495959984948946, guid: 28c4cc3b3d639dc40bdad01f01984153, type: 3}
+      propertyPath: gameOverHandlerPrefab
+      value: 
+      objectReference: {fileID: 4089998757517855350, guid: 641b22361b718d04b951eebb6fcf5739, type: 3}
     - target: {fileID: 1734495959984948957, guid: 28c4cc3b3d639dc40bdad01f01984153, type: 3}
       propertyPath: m_Name
       value: NetworkManager

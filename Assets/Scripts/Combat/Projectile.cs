@@ -19,7 +19,6 @@ public class Projectile : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        //base.OnStartServer();
         Invoke(nameof(DestroySelf), destroyAfterSeconds);
     }
 

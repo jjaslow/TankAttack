@@ -14,6 +14,12 @@ public class UnitCommandGiver : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
+        GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
+    }
+
+    private void OnDisable()
+    {
+        GameOverHandler.ClientOnGameOver -= ClientHandleGameOver;
     }
 
     private void Update()
@@ -67,6 +73,11 @@ public class UnitCommandGiver : MonoBehaviour
         }
     }
 
+
+    void ClientHandleGameOver(string winnerName)
+    {
+        enabled = false;
+    }
 
 
 }

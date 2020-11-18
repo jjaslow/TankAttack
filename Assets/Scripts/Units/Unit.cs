@@ -23,7 +23,6 @@ public class Unit : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        //base.OnStartServer();
         ServerOnUnitSpawned?.Invoke(this);
 
         health = GetComponent<Health>();
@@ -32,7 +31,6 @@ public class Unit : NetworkBehaviour
 
     public override void OnStopServer()
     {
-        //base.OnStopServer();
         ServerOnUnitDespawned?.Invoke(this);
 
         health.ServerOnDie -= ServerHandleDie;
@@ -76,15 +74,11 @@ public class Unit : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        //base.OnStartServer();
-
         AuthorityOnUnitSpawned?.Invoke(this);
     }
 
     public override void OnStopClient()
     {
-        //base.OnStopClient();
-
         if (!hasAuthority)
             return;
 

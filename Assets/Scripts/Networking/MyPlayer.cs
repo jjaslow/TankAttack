@@ -19,7 +19,6 @@ public class MyPlayer : NetworkBehaviour
     #region Server
     public override void OnStartServer()
     {
-        //base.OnStartServer();
         Unit.ServerOnUnitSpawned += ServerAddUnitToList;
         Unit.ServerOnUnitDespawned += ServerRemoveUnitFromList;
     }
@@ -27,7 +26,6 @@ public class MyPlayer : NetworkBehaviour
 
     public override void OnStopServer()
     {
-        //base.OnStopServer();
         Unit.ServerOnUnitSpawned -= ServerAddUnitToList;
         Unit.ServerOnUnitDespawned -= ServerRemoveUnitFromList;
     }
@@ -55,7 +53,6 @@ public class MyPlayer : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        //base.OnStartClient();
         if (NetworkServer.active)
             return;
 
@@ -66,7 +63,6 @@ public class MyPlayer : NetworkBehaviour
 
     public override void OnStopClient()
     {
-        //base.OnStopClient();
         if (!isClientOnly || !hasAuthority)
             return;
 

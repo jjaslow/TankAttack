@@ -31,13 +31,16 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
         Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
     }
 
     private void OnDisable()
     {
+        GameOverHandler.ClientOnGameOver -= ClientHandleGameOver;
         Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
     }
+
 
     private void AuthorityHandleUnitDespawned(Unit unit)
     {
@@ -140,6 +143,12 @@ public class UnitSelectionHandler : MonoBehaviour
         }
     }
 
+
+
+    private void ClientHandleGameOver(string winnerName)
+    {
+        enabled = false;
+    }
 
 
     public void SelectNewlySpawnedUnit(GameObject unitObject)

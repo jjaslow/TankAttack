@@ -1,18 +1,21 @@
 ﻿using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameOverHandler : NetworkBehaviour
 {
-    [SerializeField]
-    List<UnitBase> unitBases = new List<UnitBase>();
+    List<UnitBase> unitBases;
+
+    public static event Action ServerOnGameOver;
+    public static event Action<string> ClientOnGameOver;
 
     #region Server
 
     public override void OnStartServer()
     {
-        base.OnStartServer();
+        unitBases = new List<UnitBase>();
 
         UnitBase.ServerOnBaseSpawn += ServerHandleBaseSpawned;
         UnitBase.ServerOnBaseDespawn += ServerHandleBaseDespawned;
@@ -20,7 +23,9 @@ public class GameOverHandler : NetworkBehaviour
 
     public override void OnStopServer()
     {
-        base.OnStopServer();
+        Debug.Log("GameOverHandler.cs OnStopServer called");
+
+        unitBases.Clear();
 
         UnitBase.ServerOnBaseSpawn -= ServerHandleBaseSpawned;
         UnitBase.ServerOnBaseDespawn -= ServerHandleBaseDespawned;
@@ -36,12 +41,17 @@ public class GameOverHandler : NetworkBehaviour
     [Server]
     void ServerHandleBaseDespawned(UnitBase unitBase)
     {
+        //if (this == null) { return; }
+
         unitBases.Remove(unitBase);
 
         if (unitBases.Count != 1)
             return;
 
-        Debug.Log("Game Over");
+        int playerID = unitBases[0].connectionToClient.connectionId;
+        RpcGameOver("Player " + playerID);
+
+        ServerOnGameOver?.Invoke();
     }
 
     #endregion
@@ -50,6 +60,13 @@ public class GameOverHandler : NetworkBehaviour
 
 
     #region Client
+
+
+    [ClientRpc]
+    void RpcGameOver(string winner)
+    {
+        ClientOnGameOver?.Invoke(winner);
+    }
 
 
 

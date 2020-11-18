@@ -12,6 +12,17 @@ public class Targeter : NetworkBehaviour
         return target;
     }
 
+    public override void OnStartServer()
+    {
+        GameOverHandler.ServerOnGameOver += ClearTarget;
+    }
+
+
+    public override void OnStopServer()
+    {
+        GameOverHandler.ServerOnGameOver -= ClearTarget;
+    }
+
     #region Server
 
     [Command]

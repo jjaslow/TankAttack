@@ -11,29 +11,33 @@ public class UnitBase : NetworkBehaviour
     public static event Action<UnitBase> ServerOnBaseSpawn;
     public static event Action<UnitBase> ServerOnBaseDespawn;
 
+    public static event Action<int> ServerOnPlayerDie;
+
     #region Server
 
     public override void OnStartServer()
     {
-        base.OnStartServer();
-
         health = GetComponent<Health>();
         health.ServerOnDie += ServerHandleDeath;
 
         ServerOnBaseSpawn?.Invoke(this);
+
     }
 
     public override void OnStopServer()
     {
-        base.OnStopServer();
-        health.ServerOnDie -= ServerHandleDeath;
 
         ServerOnBaseDespawn?.Invoke(this);
+
+        health.ServerOnDie -= ServerHandleDeath;
+
+
     }
 
     [Server]
     private void ServerHandleDeath()
     {
+        ServerOnPlayerDie?.Invoke(connectionToClient.connectionId);
         NetworkServer.Destroy(gameObject);
     }
 
