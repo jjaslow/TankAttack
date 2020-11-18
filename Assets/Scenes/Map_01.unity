@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 256901571}
   - component: {fileID: 256901570}
   - component: {fileID: 256901569}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1024
   dragBox: {fileID: 1299774223}
   selectedUnits: []
 --- !u!4 &1136741195
@@ -512,7 +512,7 @@ MonoBehaviour:
   unitSelectionHandler: {fileID: 1136741194}
   layermask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 5121
 --- !u!1 &1299774222
 GameObject:
   m_ObjectHideFlags: 0

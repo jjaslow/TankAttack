@@ -72,6 +72,8 @@
     <Compile Include="Assets\Scripts\Networking\MyPlayer.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
     <Compile Include="Assets\Scripts\Buildings\UnitBase.cs" />
+    <Compile Include="Assets\Scripts\UI\FaceCamera.cs" />
+    <Compile Include="Assets\Scripts\Buildings\Building.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />

@@ -57,8 +57,6 @@ public class Health : NetworkBehaviour
         if (connectionToClient.connectionId != connectionID)
             return;
 
-        //HERE
-        //ServerOnDie?.Invoke();
         DealDamage(currentHealth);
     }
 
