@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 public class Unit : NetworkBehaviour
 {
+    Health health;
 
     [SerializeField] UnityEvent onSelected = null;
     [SerializeField] UnityEvent onDeselected = null;
@@ -17,7 +18,6 @@ public class Unit : NetworkBehaviour
     public static event Action<Unit> AuthorityOnUnitSpawned;
     public static event Action<Unit> AuthorityOnUnitDespawned;
 
-    Health health;
 
     #region Server
 

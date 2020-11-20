@@ -6,7 +6,7 @@ using System;
 
 public class Building : NetworkBehaviour
 {
-
+    [SerializeField] GameObject buildingPreview;
     [SerializeField] Sprite icon = null;
     [SerializeField] int id = -1;
     [SerializeField] int price = 100;
@@ -31,6 +31,11 @@ public class Building : NetworkBehaviour
     public int GetPrice()
     {
         return price;
+    }
+
+    public GameObject GetBuildingPreview()
+    {
+        return buildingPreview;
     }
     #endregion
 

@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\Combat\Health.cs" />
     <Compile Include="Assets\Scripts\UI\GameOverDisplay.cs" />
     <Compile Include="Assets\Scripts\Combat\Projectile.cs" />
+    <Compile Include="Assets\Scripts\UI\FaceCamera.cs" />
     <Compile Include="Assets\Scripts\Combat\HealthDisplay.cs" />
     <Compile Include="Assets\Scripts\Combat\Targeter.cs" />
     <Compile Include="Assets\Scripts\Networking\MyNetworkManager.cs" />
@@ -69,11 +70,11 @@
     <Compile Include="Assets\Scripts\Units\UnitFiring.cs" />
     <Compile Include="Assets\Scripts\Units\UnitCommandGiver.cs" />
     <Compile Include="Assets\Scripts\Buildings\GameOverHandler.cs" />
+    <Compile Include="Assets\Scripts\Buildings\Building.cs" />
     <Compile Include="Assets\Scripts\Networking\MyPlayer.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
     <Compile Include="Assets\Scripts\Buildings\UnitBase.cs" />
-    <Compile Include="Assets\Scripts\UI\FaceCamera.cs" />
-    <Compile Include="Assets\Scripts\Buildings\Building.cs" />
+    <Compile Include="Assets\Scripts\Buildings\BuildingButton.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
