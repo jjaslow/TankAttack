@@ -16,6 +16,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     GameObject buildingPreviewInstance;
     Renderer buildingRendererInstance;
+    static bool isSelecting = false;
 
     [SerializeField] LayerMask floorMask = new LayerMask();
     Camera mainCamera;
@@ -31,6 +32,11 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         priceText.text = building.GetPrice().ToString();
 
 
+    }
+
+    public static bool IsSelectingBuilding()
+    {
+        return isSelecting;
     }
 
     private void Update()
@@ -49,6 +55,8 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
+
+        isSelecting = true;
 
         buildingPreviewInstance = Instantiate(building.GetBuildingPreview());
         buildingPreviewInstance.SetActive(false);
@@ -70,6 +78,8 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
 
         Destroy(buildingPreviewInstance);
+
+        isSelecting = false;
     }
 
     void UpdateBuildingPreview()

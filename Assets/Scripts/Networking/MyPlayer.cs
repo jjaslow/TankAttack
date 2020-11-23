@@ -11,6 +11,11 @@ public class MyPlayer : NetworkBehaviour
     List<Unit> myUnits = new List<Unit>();
     List<Building> myBuildings = new List<Building>();
 
+    [SyncVar(hook = nameof(ClientHandleResourcesUpdated))]
+    int resources = 500;
+
+    public event Action<int> ClientOnResourcesUpdated;
+
     #region Getters
     public List<Unit> GetMyUnits()
     {
@@ -19,6 +24,10 @@ public class MyPlayer : NetworkBehaviour
     public List<Building> GetMyBuildings()
     {
         return myBuildings;
+    }
+    public int GetResources()
+    {
+        return resources;
     }
     #endregion
 
@@ -30,6 +39,7 @@ public class MyPlayer : NetworkBehaviour
         Building.ServerOnBuildingSpawned += ServerAddBuildingToList;
         Building.ServerOnBuildingDespawned += ServerRemoveBuildingFromList;
     }
+
 
     [Command]
     public void CmdTryPlaceBuilding(int buildingID, Vector3 position)
@@ -45,6 +55,11 @@ public class MyPlayer : NetworkBehaviour
         NetworkServer.Spawn(buildingInstance, connectionToClient);
     }
 
+    [Server]
+    public void SetResources(int newResources)
+    {
+        resources = newResources;
+    }
 
     public override void OnStopServer()
     {
@@ -136,6 +151,13 @@ public class MyPlayer : NetworkBehaviour
     {
         myBuildings.Remove(building);
     }
+
+
+    private void ClientHandleResourcesUpdated(int oldResources, int newResources)
+    {
+        ClientOnResourcesUpdated?.Invoke(newResources);
+    }
+
 
 
     #endregion

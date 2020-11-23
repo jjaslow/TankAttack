@@ -21,20 +21,20 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     public override void OnStartServer()
     {
         health = GetComponent<Health>();
-        //health.ServerOnDie += ServerHandleDie;
+        health.ServerOnDie += ServerHandleDie;
     }
 
     [ServerCallback]
     public override void OnStopServer()
     {
-        //health.ServerOnDie -= ServerHandleDie;
+        health.ServerOnDie -= ServerHandleDie;
     }
 
 
     [Server]
     private void ServerHandleDie()
     {
-        //NetworkServer.Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
     }
 
     [Command]

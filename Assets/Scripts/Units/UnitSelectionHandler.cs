@@ -53,6 +53,9 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void Update()
     {
+        if (BuildingButton.IsSelectingBuilding())
+            return;
+
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             StartSelectionArea();

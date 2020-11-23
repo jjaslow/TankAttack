@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4796196389476786881, guid: 995bf5db79a11424281825ec29e175ba, type: 3}
       propertyPath: m_Name
-      value: UnitSpawnerPreview
+      value: BuildingPreview
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9021643466811775469, guid: 995bf5db79a11424281825ec29e175ba, type: 3}
@@ -124,7 +124,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1237834948968650275, guid: d6a950411816f4e458cc3e3669b72e45, type: 3}
       propertyPath: price
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1237834948968650275, guid: d6a950411816f4e458cc3e3669b72e45, type: 3}
       propertyPath: id
