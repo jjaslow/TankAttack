@@ -3,9 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MyPlayer : NetworkBehaviour
 {
+    [SerializeField] Building[] buildings = new Building[0];
     List<Unit> myUnits = new List<Unit>();
     List<Building> myBuildings = new List<Building>();
 
@@ -27,6 +29,20 @@ public class MyPlayer : NetworkBehaviour
         Unit.ServerOnUnitDespawned += ServerRemoveUnitFromList;
         Building.ServerOnBuildingSpawned += ServerAddBuildingToList;
         Building.ServerOnBuildingDespawned += ServerRemoveBuildingFromList;
+    }
+
+    [Command]
+    public void CmdTryPlaceBuilding(int buildingID, Vector3 position)
+    {
+        //logic to see if we can place (position is already a valid floor space)
+
+        Building buildingToPlace = buildings.FirstOrDefault(b => b.GetID() == buildingID);
+        if (buildingToPlace == null)
+            return;
+
+        GameObject buildingInstance = 
+            Instantiate(buildingToPlace.gameObject, position, Quaternion.identity);
+        NetworkServer.Spawn(buildingInstance, connectionToClient);
     }
 
 

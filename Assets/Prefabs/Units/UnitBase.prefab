@@ -107,7 +107,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnitSpawnerPreview
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9021643466811775469, guid: 995bf5db79a11424281825ec29e175ba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 995bf5db79a11424281825ec29e175ba, type: 3}
 --- !u!1 &8154699940953615673 stripped
 GameObject:
