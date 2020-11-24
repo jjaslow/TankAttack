@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class Unit : NetworkBehaviour
 {
     Health health;
+    [SerializeField] int resourceCost = 10;
 
     [SerializeField] UnityEvent onSelected = null;
     [SerializeField] UnityEvent onDeselected = null;
@@ -17,6 +18,15 @@ public class Unit : NetworkBehaviour
     public static event Action<Unit> ServerOnUnitDespawned;
     public static event Action<Unit> AuthorityOnUnitSpawned;
     public static event Action<Unit> AuthorityOnUnitDespawned;
+
+    #region Getters
+
+    public int GetResourceCost()
+    {
+        return resourceCost;
+    }
+
+    #endregion
 
 
     #region Server

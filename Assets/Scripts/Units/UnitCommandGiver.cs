@@ -39,6 +39,8 @@ public class UnitCommandGiver : MonoBehaviour
         if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layermask))
             return;
 
+        Debug.Log("I targeted: " + hit.collider.name);
+
         //we definitely hit something...
         //if we click on a Targetable (not our own) then we target it (chase it), else we just go to that place.
         if(hit.collider.TryGetComponent<Targetable>(out Targetable target))

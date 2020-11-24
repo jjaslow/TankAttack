@@ -20,11 +20,12 @@ public class UnitMovement : NetworkBehaviour
     [ServerCallback]
     private void Start()
     {
-        targeter = GetComponent<Targeter>();
+        //targeter = GetComponent<Targeter>();
     }
 
     public override void OnStartServer()
     {
+        targeter = GetComponent<Targeter>();
         GameOverHandler.ServerOnGameOver += ServerHandleGameOver;
     }
 
@@ -62,8 +63,13 @@ public class UnitMovement : NetworkBehaviour
     [Command]
     public void CmdMove(Vector3 destination)
     {
-        targeter.ClearTarget();
+        ServerMove(destination);
+    }
 
+    [Server]
+    public void ServerMove(Vector3 destination)
+    {
+        targeter.ClearTarget();
 
         //is the point on a navMesh?
         NavMeshHit hit;
