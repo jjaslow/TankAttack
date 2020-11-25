@@ -8,6 +8,7 @@ using System.Linq;
 public class MyPlayer : NetworkBehaviour
 {
     [SerializeField] Building[] buildings = new Building[0];
+    [SerializeField] Transform cameraTransform;
 
     List<Unit> myUnits = new List<Unit>();
     List<Building> myBuildings = new List<Building>();
@@ -37,6 +38,10 @@ public class MyPlayer : NetworkBehaviour
     public Color GetMyColor()
     {
         return myColor;
+    }
+    public Transform GetCameraTransform()
+    {
+        return cameraTransform;
     }
     #endregion
 

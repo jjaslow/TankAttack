@@ -56,6 +56,7 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Networking\TeamColorSetter.cs" />
     <Compile Include="Assets\Scripts\Units\UnitSelectionHandler.cs" />
     <Compile Include="Assets\Scripts\Combat\Targetable.cs" />
     <Compile Include="Assets\Scripts\Combat\Health.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Assets\Scripts\Buildings\BuildingButton.cs" />
     <Compile Include="Assets\Scripts\Networking\MyNetworkManager.cs" />
     <Compile Include="Assets\Scripts\Units\UnitMovement.cs" />
+    <Compile Include="Assets\Scripts\Inputs\Controls.cs" />
     <Compile Include="Assets\Scripts\Buildings\UnitSpawner.cs" />
     <Compile Include="Assets\Scripts\Buildings\ResourceGenerator.cs" />
     <Compile Include="Assets\Scripts\Units\UnitFiring.cs" />
@@ -75,11 +77,10 @@
     <Compile Include="Assets\Scripts\Buildings\Building.cs" />
     <Compile Include="Assets\Scripts\Networking\MyPlayer.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
+    <Compile Include="Assets\Scripts\Inputs\CameraController.cs" />
     <Compile Include="Assets\Scripts\Buildings\UnitBase.cs" />
     <Compile Include="Assets\Scripts\UI\ResourcesDisplay.cs" />
-    <Compile Include="Assets\Scripts\Networking\TeamColorSetter.cs" />
-    <Compile Include="Assets\Scripts\Inputs\Controls.cs" />
-    <Compile Include="Assets\Scripts\Inputs\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Inputs\MiniMap.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />

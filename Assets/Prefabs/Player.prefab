@@ -67,6 +67,7 @@ MonoBehaviour:
   buildings:
   - {fileID: 6590590797763197396, guid: 6451c5975dc018147a41eedbe5e110b2, type: 3}
   - {fileID: 6590590797763197396, guid: bf263e95fd2d31744881de6d51e57669, type: 3}
+  cameraTransform: {fileID: 4051615140949582021}
   buildingBlockLayer:
     serializedVersion: 2
     m_Bits: 1281
@@ -78,7 +79,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6383019196873360413}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73a37ebe0461fcc4da7711091045cdf2, type: 3}
   m_Name: 
