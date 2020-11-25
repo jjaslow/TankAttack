@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class MyNetworkManager : NetworkManager
 {
     [Space]
-    [SerializeField] GameObject unitSpawnerPrefab;
+    [SerializeField] GameObject basePrefab;
     [SerializeField] GameOverHandler gameOverHandlerPrefab;
 
 
@@ -15,9 +15,12 @@ public class MyNetworkManager : NetworkManager
     {
         base.OnServerAddPlayer(conn);
 
-        GameObject unitSpawnerInstance = Instantiate(unitSpawnerPrefab, conn.identity.transform.position, conn.identity.transform.rotation);
-        NetworkServer.Spawn(unitSpawnerInstance, conn);
+        MyPlayer player = conn.identity.GetComponent<MyPlayer>();
+        Color newColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        player.SetMyColor(newColor);
 
+        GameObject baseInstance = Instantiate(basePrefab, conn.identity.transform.position, conn.identity.transform.rotation);
+        NetworkServer.Spawn(baseInstance, conn);
     }
 
 

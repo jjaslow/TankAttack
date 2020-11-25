@@ -8,8 +8,10 @@ using System.Linq;
 public class MyPlayer : NetworkBehaviour
 {
     [SerializeField] Building[] buildings = new Building[0];
+
     List<Unit> myUnits = new List<Unit>();
     List<Building> myBuildings = new List<Building>();
+    Color myColor;
 
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))]
     int resources = 500;
@@ -31,6 +33,10 @@ public class MyPlayer : NetworkBehaviour
     public int GetResources()
     {
         return resources;
+    }
+    public Color GetMyColor()
+    {
+        return myColor;
     }
     #endregion
 
@@ -81,6 +87,11 @@ public class MyPlayer : NetworkBehaviour
         resources = newResources;
     }
 
+    [Server]
+    public void SetMyColor(Color color)
+    {
+        myColor = color;
+    }
 
 
     private void ServerAddUnitToList(Unit unit)

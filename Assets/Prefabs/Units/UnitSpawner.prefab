@@ -364,8 +364,23 @@ MonoBehaviour:
   remainingUnitsText: {fileID: 6179758771381576093}
   unitProgressImage: {fileID: 4579774731212567951}
   maxUnitQueue: 5
-  spawnMoveRange: 7
   unitSpawnDuration: 5
+--- !u!114 &2666105889272483046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5918636832168577240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce239da084ac59b43a78e4951a8748d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  rends:
+  - {fileID: 4143015980126869532}
 --- !u!1 &5837851478909274243
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +724,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 9021643466811775469, guid: 995bf5db79a11424281825ec29e175ba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 995bf5db79a11424281825ec29e175ba, type: 3}
+--- !u!23 &4143015980126869532 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5924824923656545032, guid: 995bf5db79a11424281825ec29e175ba, type: 3}
+  m_PrefabInstance: {fileID: 7730367143989443348}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3010731949352360405 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4796196389476786881, guid: 995bf5db79a11424281825ec29e175ba, type: 3}
