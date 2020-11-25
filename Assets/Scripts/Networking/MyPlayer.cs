@@ -157,12 +157,12 @@ public class MyPlayer : NetworkBehaviour
     }
 
 
-    private void AuthorityRemoveBuildingFromList(Building building)
+    private void AuthorityAddBuildingToList(Building building)
     {
         myBuildings.Add(building);
     }
 
-    private void AuthorityAddBuildingToList(Building building)
+    private void AuthorityRemoveBuildingFromList(Building building)
     {
         myBuildings.Remove(building);
     }
