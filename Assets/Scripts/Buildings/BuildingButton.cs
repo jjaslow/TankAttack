@@ -17,6 +17,8 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     GameObject buildingPreviewInstance;
     Renderer buildingRendererInstance;
     static bool isSelecting = false;
+    Material mat;
+    Color defaultColor;
 
     [SerializeField] LayerMask floorMask = new LayerMask();
     Camera mainCamera;
@@ -30,8 +32,6 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         
         iconImage.sprite = building.GetIcon();
         priceText.text = building.GetPrice().ToString();
-
-
     }
 
     public static bool IsSelectingBuilding()
@@ -56,18 +56,30 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
+        //check funds
+        if (myPlayer.GetResources() < building.GetPrice())
+            return;
+
         isSelecting = true;
 
         buildingPreviewInstance = Instantiate(building.GetBuildingPreview());
         buildingPreviewInstance.SetActive(false);
 
         buildingRendererInstance = buildingPreviewInstance.GetComponentInChildren<Renderer>();
+
+        mat = buildingRendererInstance.GetComponentInChildren<Renderer>().material;
+        defaultColor = mat.color;
+        Debug.Log(defaultColor);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         if (buildingPreviewInstance == null)
             return;
+
+        isSelecting = false;
+        
+        //LOCATION TEST
 
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
@@ -78,8 +90,6 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
 
         Destroy(buildingPreviewInstance);
-
-        isSelecting = false;
     }
 
     void UpdateBuildingPreview()
@@ -90,11 +100,20 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             buildingPreviewInstance.transform.position = hit.point;
 
-            if(!buildingPreviewInstance.activeSelf)
+            if (!myPlayer.CanPlaceBuildingHere(building, hit.point))
+            {
+                mat.color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, .25f);
+            }
+            else
+                mat.color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, 1f);
+
+            if (!buildingPreviewInstance.activeSelf)
                 buildingPreviewInstance.SetActive(true);
         }
 
         
     }
+
+
 
 }

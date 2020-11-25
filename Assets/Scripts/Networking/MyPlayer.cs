@@ -16,6 +16,9 @@ public class MyPlayer : NetworkBehaviour
 
     public event Action<int> ClientOnResourcesUpdated;
 
+    [SerializeField] LayerMask buildingBlockLayer = new LayerMask();
+    [SerializeField] float buildingRangeLimit = 5f;
+
     #region Getters
     public List<Unit> GetMyUnits()
     {
@@ -31,6 +34,7 @@ public class MyPlayer : NetworkBehaviour
     }
     #endregion
 
+
     #region Server
     public override void OnStartServer()
     {
@@ -40,19 +44,35 @@ public class MyPlayer : NetworkBehaviour
         Building.ServerOnBuildingDespawned += ServerRemoveBuildingFromList;
     }
 
+    public override void OnStopServer()
+    {
+        Unit.ServerOnUnitSpawned -= ServerAddUnitToList;
+        Unit.ServerOnUnitDespawned -= ServerRemoveUnitFromList;
+        Building.ServerOnBuildingSpawned -= ServerAddBuildingToList;
+        Building.ServerOnBuildingDespawned -= ServerRemoveBuildingFromList;
+    }
+
 
     [Command]
     public void CmdTryPlaceBuilding(int buildingID, Vector3 position)
     {
-        //logic to see if we can place (position is already a valid floor space)
-
         Building buildingToPlace = buildings.FirstOrDefault(b => b.GetID() == buildingID);
         if (buildingToPlace == null)
+            return;
+
+        //check funds
+        if (resources < buildingToPlace.GetPrice())
+            return;
+
+        //check placement
+        if(!CanPlaceBuildingHere(buildingToPlace, position))
             return;
 
         GameObject buildingInstance = 
             Instantiate(buildingToPlace.gameObject, position, Quaternion.identity);
         NetworkServer.Spawn(buildingInstance, connectionToClient);
+
+        SetResources(resources - buildingToPlace.GetPrice());
     }
 
     [Server]
@@ -61,13 +81,6 @@ public class MyPlayer : NetworkBehaviour
         resources = newResources;
     }
 
-    public override void OnStopServer()
-    {
-        Unit.ServerOnUnitSpawned -= ServerAddUnitToList;
-        Unit.ServerOnUnitDespawned -= ServerRemoveUnitFromList;
-        Building.ServerOnBuildingSpawned -= ServerAddBuildingToList;
-        Building.ServerOnBuildingDespawned -= ServerRemoveBuildingFromList;
-    }
 
 
     private void ServerAddUnitToList(Unit unit)
@@ -104,6 +117,8 @@ public class MyPlayer : NetworkBehaviour
     }
 
     #endregion
+
+
 
 
     #region Client
@@ -163,7 +178,23 @@ public class MyPlayer : NetworkBehaviour
     #endregion
 
 
+    public bool CanPlaceBuildingHere(Building buildingToPlace, Vector3 position)
+    {
+        //check hitting other items
+        BoxCollider buildingCollider = buildingToPlace.GetComponent<BoxCollider>();
+        if (Physics.CheckBox(position + buildingCollider.center, buildingCollider.size / 2, Quaternion.identity, buildingBlockLayer))
+            return false;
 
+
+        //check in range of other buildings
+        foreach (Building building in myBuildings)
+        {
+            if (Vector3.Distance(position, building.transform.position) <= buildingRangeLimit)
+                return true;
+        }
+
+        return false;
+    }
 
 }
 
