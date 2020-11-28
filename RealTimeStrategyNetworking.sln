@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Authenticators", "Mi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.example.RigidbodyPhysics", "Mirror.example.RigidbodyPhysics.csproj", "{15EA254E-ED79-56FE-C8E6-39F3E3004D5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kcp2k", "kcp2k.csproj", "{F96F504A-C06B-EF29-443F-AE801EF94EFD}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Weaver", "Mirror.Weaver.csproj", "{CEA63F94-85D2-BDC4-BFED-F0166CC3A8E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Editor", "Mirror.Editor.csproj", "{95C33476-54F6-BD18-D709-9506CE8245B4}"
@@ -79,6 +81,10 @@ Global
 		{15EA254E-ED79-56FE-C8E6-39F3E3004D5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15EA254E-ED79-56FE-C8E6-39F3E3004D5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15EA254E-ED79-56FE-C8E6-39F3E3004D5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F96F504A-C06B-EF29-443F-AE801EF94EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F96F504A-C06B-EF29-443F-AE801EF94EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F96F504A-C06B-EF29-443F-AE801EF94EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F96F504A-C06B-EF29-443F-AE801EF94EFD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEA63F94-85D2-BDC4-BFED-F0166CC3A8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CEA63F94-85D2-BDC4-BFED-F0166CC3A8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEA63F94-85D2-BDC4-BFED-F0166CC3A8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU

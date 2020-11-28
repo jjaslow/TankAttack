@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1734495959984948945}
   - component: {fileID: 1734495959984948946}
-  - component: {fileID: 1734495959984948947}
+  - component: {fileID: 6964075300422563166}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -50,9 +50,9 @@ MonoBehaviour:
   showDebugMessages: 0
   serverTickRate: 30
   offlineScene: Assets/Scenes/Menu.unity
-  onlineScene: Assets/Scenes/Map_01.unity
-  transport: {fileID: 1734495959984948947}
-  networkAddress: 18.217.85.47
+  onlineScene: 
+  transport: {fileID: 6964075300422563166}
+  networkAddress: localhost
   maxConnections: 4
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
@@ -72,7 +72,7 @@ MonoBehaviour:
   - {fileID: 9065138733153354730, guid: 6b65788f3c206f34fa5b3c0eccb122ef, type: 3}
   basePrefab: {fileID: 5918636832168577240, guid: cdbbaa9269cd0f54da9ce90a0b2628a3, type: 3}
   gameOverHandlerPrefab: {fileID: 4089998757517855350, guid: 641b22361b718d04b951eebb6fcf5739, type: 3}
---- !u!114 &1734495959984948947
+--- !u!114 &6964075300422563166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1734495959984948957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnClientConnected:
@@ -108,9 +108,11 @@ MonoBehaviour:
   OnServerDisconnected:
     m_PersistentCalls:
       m_Calls: []
-  port: 7777
+  Port: 7777
   NoDelay: 1
-  serverMaxMessageSize: 16384
-  serverMaxReceivesPerTick: 10000
-  clientMaxMessageSize: 16384
-  clientMaxReceivesPerTick: 1000
+  Interval: 10
+  FastResend: 0
+  CongestionWindow: 1
+  SendWindowSize: 128
+  ReceiveWindowSize: 128
+  debugGUI: 0
