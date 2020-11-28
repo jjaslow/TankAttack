@@ -18,8 +18,11 @@ public class MyPlayer : NetworkBehaviour
     int resources = 500;
     [SyncVar(hook =nameof(AuthorityHandlePartyOwnerStateUpdated))]
     bool isPartyOwner = false;
+    [SyncVar(hook =nameof(ClientHandleDisplayNameUpdated))]
+    string displayName;
 
     public event Action<int> ClientOnResourcesUpdated;
+    public static event Action ClientOnInfoUpdated;
     public static event Action<bool> AuthorityOnPartyOwnerStateUpdated;
 
     [SerializeField] LayerMask buildingBlockLayer = new LayerMask();
@@ -50,6 +53,10 @@ public class MyPlayer : NetworkBehaviour
     {
         return isPartyOwner;
     }
+    public string GetDisplayName()
+    {
+        return displayName;
+    }
     #endregion
 
 
@@ -60,6 +67,8 @@ public class MyPlayer : NetworkBehaviour
         Unit.ServerOnUnitDespawned += ServerRemoveUnitFromList;
         Building.ServerOnBuildingSpawned += ServerAddBuildingToList;
         Building.ServerOnBuildingDespawned += ServerRemoveBuildingFromList;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public override void OnStopServer()
@@ -119,6 +128,12 @@ public class MyPlayer : NetworkBehaviour
         isPartyOwner = state;
     }
 
+    [Server]
+    public void SetDisplayName(string name)
+    {
+        displayName = name;
+    }
+
     private void ServerAddUnitToList(Unit unit)
     {
         if (unit.connectionToClient.connectionId != connectionToClient.connectionId)
@@ -174,12 +189,16 @@ public class MyPlayer : NetworkBehaviour
     {
         if (NetworkServer.active) return;
 
+        DontDestroyOnLoad(gameObject);
+
         ((MyNetworkManager)NetworkManager.singleton).Players.Add(this);
     }
 
 
     public override void OnStopClient()
     {
+        ClientOnInfoUpdated?.Invoke();
+
         if (!isClientOnly)
             return;
 
@@ -226,6 +245,10 @@ public class MyPlayer : NetworkBehaviour
         ClientOnResourcesUpdated?.Invoke(newResources);
     }
 
+    private void ClientHandleDisplayNameUpdated(string oldName, string newName)
+    {
+        ClientOnInfoUpdated?.Invoke();
+    }
 
 
     #endregion

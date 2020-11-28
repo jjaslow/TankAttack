@@ -32,6 +32,8 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         
         iconImage.sprite = building.GetIcon();
         priceText.text = building.GetPrice().ToString();
+
+        myPlayer = NetworkClient.connection.identity.GetComponent<MyPlayer>();
     }
 
     public static bool IsSelectingBuilding()
@@ -41,10 +43,6 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private void Update()
     {
-        //temp requirement to get player, since its still null at Start
-        if (myPlayer == null)
-            myPlayer = NetworkClient.connection.identity.GetComponent<MyPlayer>();
-
         if (buildingPreviewInstance != null)
             UpdateBuildingPreview();
     }
@@ -69,7 +67,6 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         mat = buildingRendererInstance.GetComponentInChildren<Renderer>().material;
         defaultColor = mat.color;
-        Debug.Log(defaultColor);
     }
 
     public void OnPointerUp(PointerEventData eventData)

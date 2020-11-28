@@ -12,25 +12,12 @@ public class ResourcesDisplay : MonoBehaviour
 
     private void Start()
     {
-        //temp move to update for now
-        //player = NetworkClient.connection.identity.GetComponent<MyPlayer>();
-        //player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
+        player = NetworkClient.connection.identity.GetComponent<MyPlayer>();
+        ClientHandleResourcesUpdated(player.GetResources());
+
+        player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
     }
 
-    private void Update()
-    {
-        //here from start for now
-        if(player==null)
-        {
-            player = NetworkClient.connection.identity.GetComponent<MyPlayer>();
-
-            if(player!=null)
-            {
-                ClientHandleResourcesUpdated(player.GetResources());
-                player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
-            }
-        }
-    }
 
     private void OnDisable()
     {

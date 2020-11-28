@@ -64,6 +64,7 @@ public class MyNetworkManager : NetworkManager
         player.SetMyColor(newColor);
 
         player.SetPartyOwner(Players.Count == 1);
+        player.SetDisplayName("Player " + Players.Count);
     }
 
 

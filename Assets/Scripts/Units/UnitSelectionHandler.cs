@@ -25,8 +25,7 @@ public class UnitSelectionHandler : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        //temp move to later...
-        //player = NetworkClient.connection.identity.GetComponent<MyPlayer>();
+        player = NetworkClient.connection.identity.GetComponent<MyPlayer>();
     }
 
     private void OnEnable()
@@ -123,9 +122,6 @@ public class UnitSelectionHandler : MonoBehaviour
         Vector2 min = dragBox.anchoredPosition - (dragBox.sizeDelta / 2);
         Vector2 max = dragBox.anchoredPosition + (dragBox.sizeDelta / 2);
 
-        //temp requirement to get player, since its still null at Start
-        if (player == null)
-            player = NetworkClient.connection.identity.GetComponent<MyPlayer>();
 
         foreach (Unit unit in player.GetMyUnits())
         {

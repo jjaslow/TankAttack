@@ -13,10 +13,10 @@ public class MiniMap : MonoBehaviour, IPointerDownHandler, IDragHandler
     [SerializeField] float mapScale = 20f;
     [SerializeField] float offset = -6;
 
-    private void Update()
+    private void Start()
     {
-        if (playerCameraTransform == null)
-            if(NetworkClient.connection.identity!=null)
+        //if (playerCameraTransform == null)
+        //    if(NetworkClient.connection.identity!=null)
                 playerCameraTransform = NetworkClient.connection.identity.GetComponent<MyPlayer>().GetCameraTransform();
     }
 
