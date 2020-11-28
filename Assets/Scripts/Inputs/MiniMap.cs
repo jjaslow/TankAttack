@@ -37,6 +37,9 @@ public class MiniMap : MonoBehaviour, IPointerDownHandler, IDragHandler
             Mathf.Lerp(-mapScale, mapScale, lerp.y)
             );
 
+        if (newCameraPos.z < 0)
+            newCameraPos.z *= 1.25f;
+
         playerCameraTransform.position = newCameraPos + new Vector3(0, 0, offset);
     }
 

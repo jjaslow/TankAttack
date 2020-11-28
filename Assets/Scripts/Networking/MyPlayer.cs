@@ -16,8 +16,11 @@ public class MyPlayer : NetworkBehaviour
 
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))]
     int resources = 500;
+    [SyncVar(hook =nameof(AuthorityHandlePartyOwnerStateUpdated))]
+    bool isPartyOwner = false;
 
     public event Action<int> ClientOnResourcesUpdated;
+    public static event Action<bool> AuthorityOnPartyOwnerStateUpdated;
 
     [SerializeField] LayerMask buildingBlockLayer = new LayerMask();
     [SerializeField] float buildingRangeLimit = 5f;
@@ -42,6 +45,10 @@ public class MyPlayer : NetworkBehaviour
     public Transform GetCameraTransform()
     {
         return cameraTransform;
+    }
+    public bool GetIsPartyOwner()
+    {
+        return isPartyOwner;
     }
     #endregion
 
@@ -86,6 +93,14 @@ public class MyPlayer : NetworkBehaviour
         SetResources(resources - buildingToPlace.GetPrice());
     }
 
+    [Command]
+    public void CmdStartGame()
+    {
+        if (!isPartyOwner) return;
+
+        ((MyNetworkManager)NetworkManager.singleton).StartGame();
+    }
+
     [Server]
     public void SetResources(int newResources)
     {
@@ -98,6 +113,11 @@ public class MyPlayer : NetworkBehaviour
         myColor = color;
     }
 
+    [Server]
+    public void SetPartyOwner(bool state)
+    {
+        isPartyOwner = state;
+    }
 
     private void ServerAddUnitToList(Unit unit)
     {
@@ -150,11 +170,22 @@ public class MyPlayer : NetworkBehaviour
         Building.AuthorityOnBuildingDespawned += AuthorityRemoveBuildingFromList;
     }
 
+    public override void OnStartClient()
+    {
+        if (NetworkServer.active) return;
+
+        ((MyNetworkManager)NetworkManager.singleton).Players.Add(this);
+    }
+
 
     public override void OnStopClient()
     {
-        if (!isClientOnly || !hasAuthority)
+        if (!isClientOnly)
             return;
+
+        ((MyNetworkManager)NetworkManager.singleton).Players.Remove(this);
+
+        if (!hasAuthority) return;
 
         Unit.AuthorityOnUnitSpawned -= AuthorityAddUnitToList;
         Unit.AuthorityOnUnitDespawned -= AuthorityRemoveUnitFromList;
@@ -183,6 +214,12 @@ public class MyPlayer : NetworkBehaviour
         myBuildings.Remove(building);
     }
 
+    void AuthorityHandlePartyOwnerStateUpdated(bool oldState, bool newState)
+    {
+        if (!hasAuthority) return;
+
+        AuthorityOnPartyOwnerStateUpdated?.Invoke(newState);
+    }
 
     private void ClientHandleResourcesUpdated(int oldResources, int newResources)
     {

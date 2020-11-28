@@ -99,8 +99,11 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
         GameObject unitInstance = Instantiate(unitPrefab.gameObject, spawnPoint.position, spawnPoint.rotation);
         NetworkServer.Spawn(unitInstance, connectionToClient);
 
-        Vector3 spawnOffset = spawnMoveRange * UnityEngine.Random.onUnitSphere;
-        spawnOffset.y = unitInstance.transform.position.y;
+        //Vector3 spawnOffset = spawnMoveRange * UnityEngine.Random.onUnitSphere;
+        //spawnOffset.y = unitInstance.transform.position.y;
+        Vector3 spawnOffset = spawnPoint.transform.forward * UnityEngine.Random.Range(2f, 4f);
+        spawnOffset.x = UnityEngine.Random.Range(-3f, 3f);
+        Debug.Log("spawn offset: " + spawnOffset);
 
         UnitMovement unitMovement = unitInstance.GetComponent<UnitMovement>();
         unitMovement.ServerMove(unitInstance.transform.position + spawnOffset);
