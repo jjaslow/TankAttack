@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\Networking\TeamColorSetter.cs" />
     <Compile Include="Assets\Scripts\Units\UnitSelectionHandler.cs" />
     <Compile Include="Assets\Scripts\Combat\Targetable.cs" />
+    <Compile Include="Assets\Scripts\UI\JoinLobbyMenu.cs" />
     <Compile Include="Assets\Scripts\Combat\Health.cs" />
     <Compile Include="Assets\Scripts\UI\GameOverDisplay.cs" />
     <Compile Include="Assets\Scripts\Combat\Projectile.cs" />
@@ -79,11 +80,10 @@
     <Compile Include="Assets\Scripts\Inputs\MiniMap.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
     <Compile Include="Assets\Scripts\Inputs\CameraController.cs" />
+    <Compile Include="Assets\Scripts\UI\LobbyMenu.cs" />
     <Compile Include="Assets\Scripts\Buildings\UnitBase.cs" />
     <Compile Include="Assets\Scripts\UI\ResourcesDisplay.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\JoinLobbyMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\LobbyMenu.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />

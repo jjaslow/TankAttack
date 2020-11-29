@@ -63,6 +63,7 @@
     <Compile Include="Assets\Mirror\Examples\Chat\Scripts\ChatWindow.cs" />
     <Compile Include="Assets\Mirror\Examples\Room\Scripts\NetworkRoomPlayerExt.cs" />
     <Compile Include="Assets\Mirror\Examples\Room\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Mirror\Examples\Basic\Scripts\BasicNetManager.cs" />
     <Compile Include="Assets\Mirror\Examples\AdditiveScenes\Scripts\RandomColor.cs" />
     <Compile Include="Assets\Mirror\Examples\Benchmark\Scripts\BenchmarkNetworkManager.cs" />
     <Compile Include="Assets\Mirror\Examples\Benchmark\Scripts\MonsterMovement.cs" />
@@ -88,7 +89,6 @@
     <Compile Include="Assets\Mirror\Examples\Tanks\Scripts\Projectile.cs" />
     <Compile Include="Assets\Mirror\Examples\MultipleAdditiveScenes\Scripts\Reward.cs" />
     <Compile Include="Assets\Mirror\Examples\MultipleAdditiveScenes\Scripts\PlayerScore.cs" />
-    <Compile Include="Assets\Mirror\Examples\Basic\Scripts\BasicNetManager.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Examples\Tanks\Textures\(Public Domain) Dirt Hand Painted Texture\Dirt Hand Painted Texture - License.txt" />
@@ -661,11 +661,11 @@
     <Reference Include="System.Xml.XPath.XDocument">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.1.10f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
